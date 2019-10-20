@@ -1,0 +1,16 @@
+:global {
+  html, body, #app-root {
+    height: 100%;
+  }
+
+  body {
+    margin: 0;
+  }
+
+  div, p, span, b, a {
+    line-height: 1;
+    outline: none;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+    font-size: 14px;
+  }
+}

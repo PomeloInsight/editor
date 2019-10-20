@@ -1,0 +1,22 @@
+{
+  "rulesDirectory": [
+    "node_modules/tslint-microsoft-contrib"
+  ],
+  "extends": [
+    "tslint-microsoft-contrib/recommended"
+  ],
+  "rules": {
+    "export-name": false,
+    "import-name": false,
+    "no-useless-files": false,
+    "no-relative-imports": false,
+    "react-this-binding-issue": [
+      true,
+      {
+        "bind-decorators": [
+          "autobind"
+        ]
+      }
+    ]
+  }
+}

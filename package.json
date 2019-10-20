@@ -1,0 +1,30 @@
+{
+  "name": "editor",
+  "version": "0.0.1",
+  "description": "pomelo doc editor",
+  "main": "index.js",
+  "repository": "git@github.com:pomelodoc/editor.git",
+  "author": "zhengrenzhe <zhengrenzhe.niujie@gmail.com>",
+  "license": "GPL-3.0-or-later",
+  "scripts": {
+    "dev": "next",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "next": "^9.1.1",
+    "react": "^16.10.2",
+    "react-dom": "^16.10.2"
+  },
+  "devDependencies": {
+    "@types/node": "^12.11.1",
+    "@types/react": "^16.9.9",
+    "@zeit/next-sass": "^1.0.1",
+    "autoprefixer": "^9.6.5",
+    "node-sass": "^4.12.0",
+    "postcss-loader": "^3.0.0",
+    "tslint": "^5.20.0",
+    "tslint-microsoft-contrib": "^6.2.0",
+    "typescript": "^3.6.4"
+  }
+}

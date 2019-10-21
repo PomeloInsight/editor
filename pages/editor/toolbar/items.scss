@@ -1,0 +1,18 @@
+.item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color .12s ease-out;
+  cursor: pointer;
+  height: 30px;
+  min-width: 16px;
+  padding: 0 7px;
+  border-radius: 4px;
+  color: #595959;
+  user-select: none;
+  margin: 0 2px;
+
+  &:hover {
+    background-color: rgba(9, 30, 66, .13);
+  }
+}

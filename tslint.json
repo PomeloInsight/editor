@@ -6,18 +6,12 @@
     "tslint-microsoft-contrib/recommended"
   ],
   "rules": {
-    "export-name": false,
     "import-name": false,
-    "no-useless-files": false,
-    "react-a11y-titles": false,
     "no-relative-imports": false,
-    "react-this-binding-issue": [
-      true,
-      {
-        "bind-decorators": [
-          "autobind"
-        ]
-      }
-    ]
+    "export-name": false,
+    "react-a11y-event-has-role": false,
+    "react-a11y-role-has-required-aria-props": false,
+    "react-a11y-input-elements": false,
+    "react-this-binding-issue": false
   }
 }

@@ -3,6 +3,7 @@ import Head from "next/head";
 
 import Toolbar from "./toolbar";
 import StatusBar from "./statusbar";
+import Paper from "./paper";
 
 import * as css from "./style.scss";
 
@@ -15,6 +16,7 @@ class Editor extends React.Component {
                 </Head>
                 <StatusBar/>
                 <Toolbar/>
+                <Paper/>
             </div>
         );
     }

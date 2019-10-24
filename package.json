@@ -12,26 +12,26 @@
     "start": "next start"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-svg-core": "^1.2.25",
-    "@fortawesome/free-solid-svg-icons": "^5.11.2",
-    "@fortawesome/react-fontawesome": "^0.1.7",
-    "core-decorators": "^0.20.0",
-    "next": "^9.1.1",
-    "react": "^16.10.2",
-    "react-dom": "^16.10.2"
+    "@fortawesome/fontawesome-svg-core": "1.2.25",
+    "@fortawesome/free-solid-svg-icons": "5.11.2",
+    "@fortawesome/react-fontawesome": "0.1.7",
+    "core-decorators": "0.20.0",
+    "next": "9.1.1",
+    "react": "16.11.0",
+    "react-dom": "16.11.0"
   },
   "devDependencies": {
-    "@babel/plugin-proposal-class-properties": "^7.5.5",
-    "@babel/plugin-proposal-decorators": "^7.6.0",
-    "@types/core-decorators": "^0.20.0",
-    "@types/node": "^12.11.1",
-    "@types/react": "^16.9.9",
-    "@zeit/next-sass": "^1.0.1",
-    "autoprefixer": "^9.6.5",
-    "node-sass": "^4.12.0",
-    "postcss-loader": "^3.0.0",
-    "tslint": "^5.20.0",
-    "tslint-microsoft-contrib": "^6.2.0",
-    "typescript": "^3.6.4"
+    "@babel/plugin-proposal-class-properties": "7.5.5",
+    "@babel/plugin-proposal-decorators": "7.6.0",
+    "@types/core-decorators": "0.20.0",
+    "@types/node": "12.11.6",
+    "@types/react": "16.9.9",
+    "@zeit/next-sass": "1.0.1",
+    "autoprefixer": "9.7.0",
+    "node-sass": "4.13.0",
+    "postcss-loader": "3.0.0",
+    "tslint": "5.20.0",
+    "tslint-microsoft-contrib": "6.2.0",
+    "typescript": "3.6.4"
   }
 }

@@ -19,6 +19,7 @@ class ToolBarItem extends React.Component {
 
 interface IExpand {
     vertical?: boolean;
+    grid?: boolean;
 }
 
 @autobind
@@ -55,6 +56,7 @@ class Expand extends React.Component<IExpand> {
                     [css.expand]: true,
                     [css.expandShow]: showOthers,
                     [css.expandVertical]: this.props.vertical === true,
+                    [css.expandGrid]: this.props.grid === true,
                 }) }
                 ref={ this.expandRoot }
             >
@@ -175,6 +177,7 @@ const Hr = SimpleButton(fa.faMinus);
 const RemoveFormat = SimpleButton(fa.faRemoveFormat);
 const Toc = SimpleButton(fa.faSitemap);
 const Help = SimpleButton(fa.faQuestion);
+const Math = SimpleButton(fa.faSquareRootAlt);
 
 const Buttons = {
     Bold,
@@ -208,5 +211,6 @@ const Buttons = {
     Help,
     PredefinedFormat,
     FontList,
+    Math,
 };
 export { Buttons, Spacer, Expand, Group };

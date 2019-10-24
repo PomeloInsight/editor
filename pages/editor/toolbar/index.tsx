@@ -45,15 +45,11 @@ class Toolbar extends React.Component {
                         { ToolbarItem.Buttons.Sup }
                         { ToolbarItem.Buttons.Code }
                         { ToolbarItem.Buttons.Hr }
-                    </ToolbarItem.Expand>
-                </ToolbarItem.Group>
-
-                <ToolbarItem.Group>
-                    <ToolbarItem.Expand>
                         { ToolbarItem.Buttons.Table }
                         { ToolbarItem.Buttons.Image }
                         { ToolbarItem.Buttons.Column }
                         { ToolbarItem.Buttons.Toc }
+                        { ToolbarItem.Buttons.Math }
                     </ToolbarItem.Expand>
                 </ToolbarItem.Group>
 

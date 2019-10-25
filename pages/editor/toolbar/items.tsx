@@ -7,10 +7,15 @@ import { autobind } from "core-decorators";
 import * as css from "./items.scss";
 import { cls } from "../../common/ts/utils";
 
-class ToolBarItem extends React.Component {
+interface IToolBarItem {
+    clicked: (event: React.PointerEvent<HTMLDivElement>) => void
+}
+
+class ToolBarItem extends React.Component<IToolBarItem> {
     render() {
+        const { clicked } = this.props;
         return (
-            <div className={ css.item }>
+            <div className={ css.item } onPointerDown={ clicked }>
                 { this.props.children }
             </div>
         );
@@ -86,67 +91,37 @@ class Group extends React.Component {
 
 const Spacer = <div className={ css.spacer }/>;
 
-const SimpleButton = (icon: IconDefinition) => (
-    <ToolBarItem>
-        <FontAwesomeIcon icon={ icon }/>
-    </ToolBarItem>
-);
+const SimpleButton =
+    (content: IconDefinition | String, isText = false) =>
+        (clicked: (event: React.PointerEvent<HTMLDivElement>) => void) => (
+            <ToolBarItem clicked={ clicked }>
+                { isText ?
+                    `${ content }` :
+                    <FontAwesomeIcon icon={ content as IconDefinition }/>
+                }
+            </ToolBarItem>
+        );
 
-const PredefinedFormat = (
-    <Expand vertical={ true }>
-        <ToolBarItem>
-            正文
-        </ToolBarItem>
-        <ToolBarItem>
-            一级标题
-        </ToolBarItem>
-        <ToolBarItem>
-            二级标题
-        </ToolBarItem>
-        <ToolBarItem>
-            三级标题
-        </ToolBarItem>
-        <ToolBarItem>
-            四级标题
-        </ToolBarItem>
-        <ToolBarItem>
-            五级标题
-        </ToolBarItem>
-        <ToolBarItem>
-            六级标题
-        </ToolBarItem>
-    </Expand>
-);
+const PredefinedFormat = {
+    body: SimpleButton("正文", true),
+    h1: SimpleButton("一级标题", true),
+    h2: SimpleButton("二级标题", true),
+    h3: SimpleButton("三级标题", true),
+    h4: SimpleButton("四级标题", true),
+    h5: SimpleButton("五级标题", true),
+    h6: SimpleButton("六级标题", true),
+};
 
-const FontList = (
-    <Expand vertical={ true }>
-        { SimpleButton(fa.faFont) }
-        <ToolBarItem>
-            Default
-        </ToolBarItem>
-        <ToolBarItem>
-            Noto Sans SC
-        </ToolBarItem>
-        <ToolBarItem>
-            Noto Serif SC
-        </ToolBarItem>
-        <ToolBarItem>
-            Roboto
-        </ToolBarItem>
-        <ToolBarItem>
-            Open Sans
-        </ToolBarItem>
-        <ToolBarItem>
-            Noto Sans
-        </ToolBarItem>
-        <ToolBarItem>
-            Ubuntu
-        </ToolBarItem>
-        <ToolBarItem>
-            Slabo
-        </ToolBarItem>
-    </Expand>
-);
+const FontList = {
+    default: SimpleButton("Default", true),
+    NotoSansSC: SimpleButton("Noto Sans SC", true),
+    NotoSerifSC: SimpleButton("Noto Serif SC", true),
+    Roboto: SimpleButton("Roboto", true),
+    OpenSans: SimpleButton("Open Sans", true),
+    NotoSans: SimpleButton("Noto Sans", true),
+    Ubuntu: SimpleButton("Ubuntu", true),
+    Slabo: SimpleButton("Slabo", true),
+};
 
 const Bold = SimpleButton(fa.faBold);
 const AlignLeft = SimpleButton(fa.faAlignLeft);
@@ -213,4 +188,5 @@ const Buttons = {
     FontList,
     Math,
 };
+
 export { Buttons, Spacer, Expand, Group };

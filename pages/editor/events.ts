@@ -1,10 +1,3 @@
-enum Commands {
-    "Bold" = "Bold",
-    "Italic" = "Italic",
-    "UnderLine" = "UnderLine",
-    "Strike" = "Strike"
-}
-
 enum Events {
     "ButtonClicked" = "ButtonClicked"
 }
@@ -27,6 +20,5 @@ class Eventer {
     }
 }
 
-
-export { Commands, Events };
+export { Events };
 export default new Eventer();

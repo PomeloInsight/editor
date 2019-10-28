@@ -3,38 +3,28 @@ import { Editor, EditorState } from "draft-js";
 import { autobind } from "core-decorators";
 
 import * as css from "./style.scss";
-import Eventer, { Commands, Events } from "../events";
+import Eventer, { Events } from "../events";
+import { applyCommand, Commands } from "../command";
 
 @autobind
 class Paper extends React.Component {
     state = {
         editorState: EditorState.createEmpty(),
+        showEditor: false,
     };
 
     componentDidMount() {
         Eventer.subscribe(Events.ButtonClicked, (ev: Event) => {
             const type: Commands = (ev as any).detail.type;
-            if (type === Commands.Bold) this.bold();
-            if (type === Commands.UnderLine) this.underline();
-            if (type === Commands.Italic) this.italic();
-            if (type === Commands.Strike) this.strike();
+            const newEditorState = applyCommand(type, this.state.editorState);
+            this.setState({
+                editorState: newEditorState,
+            });
         });
-    }
 
-    bold() {
-        console.log("bold");
-    }
-
-    underline() {
-        console.log("underline");
-    }
-
-    italic() {
-        console.log("Italic");
-    }
-
-    strike() {
-        console.log("Strike");
+        this.setState({
+            showEditor: true,
+        });
     }
 
     onChange(newEditorState: EditorState) {
@@ -44,9 +34,12 @@ class Paper extends React.Component {
     }
 
     render() {
+        const { showEditor } = this.state;
         return (
             <div className={ css.paper }>
-                <Editor editorState={ this.state.editorState } onChange={ this.onChange }/>
+                {
+                    showEditor ? <Editor editorState={ this.state.editorState } onChange={ this.onChange }/> : null
+                }
             </div>
         );
     }

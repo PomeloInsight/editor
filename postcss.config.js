@@ -4,7 +4,7 @@ module.exports = (ctx) => {
             autoprefixer: {
                 ...ctx.options.autoprefixer,
                 flexbox: "no-2009",
-                grid: "autoplace",
+                grid: "true",
             },
         },
     };

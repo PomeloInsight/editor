@@ -4,7 +4,8 @@ import { autobind } from "core-decorators";
 import * as css from "./style.scss";
 import { Buttons, Expand, Group, Spacer } from "./items";
 
-import Eventer, { Commands, Events } from "../events";
+import Eventer, { Events } from "../events";
+import { Commands } from "../command";
 
 @autobind
 class Toolbar extends React.Component {

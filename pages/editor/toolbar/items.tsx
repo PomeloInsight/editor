@@ -8,14 +8,17 @@ import * as css from "./items.scss";
 import { cls } from "../../common/ts/utils";
 
 interface IToolBarItem {
-    clicked: (event: React.PointerEvent<HTMLDivElement>) => void
+    clicked: (event: React.PointerEvent<HTMLDivElement>) => void;
+    focus: boolean;
 }
 
 class ToolBarItem extends React.Component<IToolBarItem> {
     render() {
-        const { clicked } = this.props;
+        const { clicked, focus } = this.props;
         return (
-            <div className={ css.item } onPointerDown={ clicked }>
+            <div className={ cls({ [css.item]: true, [css.itemFocus]: focus }) }
+                 onMouseDown={ clicked }
+            >
                 { this.props.children }
             </div>
         );
@@ -93,8 +96,8 @@ const Spacer = <div className={ css.spacer }/>;
 
 const SimpleButton =
     (content: IconDefinition | String, isText = false) =>
-        (clicked: (event: React.PointerEvent<HTMLDivElement>) => void) => (
-            <ToolBarItem clicked={ clicked }>
+        (clicked: (event: React.PointerEvent<HTMLDivElement>) => void, focus: boolean = false) => (
+            <ToolBarItem clicked={ clicked } focus={ focus }>
                 { isText ?
                     `${ content }` :
                     <FontAwesomeIcon icon={ content as IconDefinition }/>
@@ -102,91 +105,56 @@ const SimpleButton =
             </ToolBarItem>
         );
 
-const PredefinedFormat = {
-    body: SimpleButton("正文", true),
-    h1: SimpleButton("一级标题", true),
-    h2: SimpleButton("二级标题", true),
-    h3: SimpleButton("三级标题", true),
-    h4: SimpleButton("四级标题", true),
-    h5: SimpleButton("五级标题", true),
-    h6: SimpleButton("六级标题", true),
-};
-
-const FontList = {
-    default: SimpleButton("Default", true),
-    NotoSansSC: SimpleButton("Noto Sans SC", true),
-    NotoSerifSC: SimpleButton("Noto Serif SC", true),
-    Roboto: SimpleButton("Roboto", true),
-    OpenSans: SimpleButton("Open Sans", true),
-    NotoSans: SimpleButton("Noto Sans", true),
-    Ubuntu: SimpleButton("Ubuntu", true),
-    Slabo: SimpleButton("Slabo", true),
-};
-
-const Bold = SimpleButton(fa.faBold);
-const AlignLeft = SimpleButton(fa.faAlignLeft);
-const AlignCenter = SimpleButton(fa.faAlignCenter);
-const AlignRight = SimpleButton(fa.faAlignRight);
-const AlignJustify = SimpleButton(fa.faAlignJustify);
-const Table = SimpleButton(fa.faTable);
-const Ol = SimpleButton(fa.faListOl);
-const Ul = SimpleButton(fa.faListUl);
-const Indent = SimpleButton(fa.faIndent);
-const OutIndent = SimpleButton(fa.faOutdent);
-const Undo = SimpleButton(fa.faUndo);
-const Redo = SimpleButton(fa.faRedo);
-const Quote = SimpleButton(fa.faQuoteLeft);
-const Strike = SimpleButton(fa.faStrikethrough);
-const Sub = SimpleButton(fa.faSubscript);
-const Sup = SimpleButton(fa.faSuperscript);
-const UnderLine = SimpleButton(fa.faUnderline);
-const Link = SimpleButton(fa.faLink);
-const Italic = SimpleButton(fa.faItalic);
-const Search = SimpleButton(fa.faSearch);
-const Color = SimpleButton(fa.faEyeDropper);
-const Image = SimpleButton(fa.faImage);
-const Save = SimpleButton(fa.faSave);
-const Code = SimpleButton(fa.faCode);
-const Column = SimpleButton(fa.faColumns);
-const Hr = SimpleButton(fa.faMinus);
-const RemoveFormat = SimpleButton(fa.faRemoveFormat);
-const Toc = SimpleButton(fa.faSitemap);
-const Help = SimpleButton(fa.faQuestion);
-const Math = SimpleButton(fa.faSquareRootAlt);
-
 const Buttons = {
-    Bold,
-    AlignLeft,
-    AlignCenter,
-    AlignRight,
-    AlignJustify,
-    Table,
-    Ol,
-    Ul,
-    Indent,
-    OutIndent,
-    Undo,
-    Redo,
-    Quote,
-    Strike,
-    Sub,
-    Sup,
-    UnderLine,
-    Link,
-    Italic,
-    Search,
-    Color,
-    Image,
-    Save,
-    Code,
-    Column,
-    Hr,
-    RemoveFormat,
-    Toc,
-    Help,
-    PredefinedFormat,
-    FontList,
-    Math,
+    Bold: SimpleButton(fa.faBold),
+    AlignLeft: SimpleButton(fa.faAlignLeft),
+    AlignCenter: SimpleButton(fa.faAlignCenter),
+    AlignRight: SimpleButton(fa.faAlignRight),
+    AlignJustify: SimpleButton(fa.faAlignJustify),
+    Table: SimpleButton(fa.faTable),
+    Ol: SimpleButton(fa.faListOl),
+    Ul: SimpleButton(fa.faListUl),
+    Indent: SimpleButton(fa.faIndent),
+    OutIndent: SimpleButton(fa.faOutdent),
+    Undo: SimpleButton(fa.faUndo),
+    Redo: SimpleButton(fa.faRedo),
+    Quote: SimpleButton(fa.faQuoteLeft),
+    Strike: SimpleButton(fa.faStrikethrough),
+    Sub: SimpleButton(fa.faSubscript),
+    Sup: SimpleButton(fa.faSuperscript),
+    UnderLine: SimpleButton(fa.faUnderline),
+    Link: SimpleButton(fa.faLink),
+    Italic: SimpleButton(fa.faItalic),
+    Search: SimpleButton(fa.faSearch),
+    Color: SimpleButton(fa.faEyeDropper),
+    Image: SimpleButton(fa.faImage),
+    Save: SimpleButton(fa.faSave),
+    Code: SimpleButton(fa.faCode),
+    Column: SimpleButton(fa.faColumns),
+    Hr: SimpleButton(fa.faMinus),
+    RemoveFormat: SimpleButton(fa.faRemoveFormat),
+    Toc: SimpleButton(fa.faSitemap),
+    Help: SimpleButton(fa.faQuestion),
+    Math: SimpleButton(fa.faSquareRootAlt),
+    PredefinedFormat: {
+        body: SimpleButton("正文", true),
+        h1: SimpleButton("一级标题", true),
+        h2: SimpleButton("二级标题", true),
+        h3: SimpleButton("三级标题", true),
+        h4: SimpleButton("四级标题", true),
+        h5: SimpleButton("五级标题", true),
+        h6: SimpleButton("六级标题", true),
+    },
+    FontList: {
+        default: SimpleButton("Default", true),
+        NotoSansSC: SimpleButton("Noto Sans SC", true),
+        NotoSerifSC: SimpleButton("Noto Serif SC", true),
+        Roboto: SimpleButton("Roboto", true),
+        OpenSans: SimpleButton("Open Sans", true),
+        NotoSans: SimpleButton("Noto Sans", true),
+        Ubuntu: SimpleButton("Ubuntu", true),
+        Slabo: SimpleButton("Slabo", true),
+    },
 };
 
 export { Buttons, Spacer, Expand, Group };

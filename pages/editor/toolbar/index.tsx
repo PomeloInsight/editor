@@ -7,13 +7,37 @@ import { Buttons, Expand, Group, Spacer } from "./items";
 import Eventer, { Events } from "../events";
 import { Commands } from "../command";
 
+interface IToolbarState {
+    focusState: {
+        [index: string]: boolean
+    }
+}
+
 @autobind
-class Toolbar extends React.Component {
+class Toolbar extends React.Component<any, IToolbarState> {
+    state: IToolbarState = {
+        focusState: {
+            "Bold": false,
+        },
+    };
+
     clicked(command: Commands) {
         Eventer.fire(Events.ButtonClicked, { "type": command });
     }
 
+    componentDidMount() {
+        Eventer.subscribe(Events.ButtonClicked, ev => {
+            const type: string = (ev as any).detail.type;
+            this.setState({
+                focusState: Object.assign(this.state.focusState, {
+                    [type]: !this.state.focusState[type],
+                }),
+            });
+        });
+    }
+
     render() {
+        const { focusState } = this.state;
         return (
             <div className={ css.toolbar }>
                 <Group>
@@ -38,7 +62,7 @@ class Toolbar extends React.Component {
                         { Buttons.FontList.Ubuntu(this.clicked.bind(this, Commands.Bold)) }
                     </Expand>
 
-                    { Buttons.Bold(this.clicked.bind(this, Commands.Bold)) }
+                    { Buttons.Bold(this.clicked.bind(this, Commands.Bold), focusState.Bold) }
                     { Buttons.Italic(this.clicked.bind(this, Commands.Italic)) }
                     { Buttons.UnderLine(this.clicked.bind(this, Commands.UnderLine)) }
                     { Buttons.Strike(this.clicked.bind(this, Commands.Strike)) }

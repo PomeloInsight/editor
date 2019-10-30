@@ -14,6 +14,8 @@ const InlineStyleMap = {
 
 @autobind
 class Paper extends React.Component {
+    editor = React.createRef<Editor>();
+
     state = {
         editorState: EditorState.createEmpty(),
         showEditor: false,
@@ -50,6 +52,13 @@ class Paper extends React.Component {
                             placeholder={ "Just Typing Someing..." }
                             editorState={ this.state.editorState }
                             onChange={ this.onChange }
+                            onBlur={ () => {
+                                console.log("blur");
+                            } }
+                            onFocus={ () => {
+                                console.log("focus");
+                            } }
+                            ref={ this.editor }
                         /> : null
                 }
             </div>

@@ -1,4 +1,4 @@
-import { EditorState } from "draft-js";
+import { EditorState, RichUtils } from "draft-js";
 
 enum Commands {
     "Bold" = "Bold",
@@ -23,19 +23,19 @@ function applyCommand(command: Commands, editorState: EditorState): EditorState 
 }
 
 function bold(editorState: EditorState): EditorState {
-    return editorState;
+    return RichUtils.toggleInlineStyle(editorState, "BOLD");
 }
 
 function italic(editorState: EditorState): EditorState {
-    return editorState;
+    return RichUtils.toggleInlineStyle(editorState, "ITALIC");
 }
 
 function underline(editorState: EditorState): EditorState {
-    return editorState;
+    return RichUtils.toggleInlineStyle(editorState, "UNDERLINE");
 }
 
 function strike(editorState: EditorState): EditorState {
-    return editorState;
+    return RichUtils.toggleInlineStyle(editorState, "STRIKE");
 }
 
 export { Commands, applyCommand };

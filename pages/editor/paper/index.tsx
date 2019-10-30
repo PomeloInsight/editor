@@ -6,6 +6,12 @@ import * as css from "./style.scss";
 import Eventer, { Events } from "../events";
 import { applyCommand, Commands } from "../command";
 
+const InlineStyleMap = {
+    "STRIKE": {
+        textDecoration: "line-through",
+    },
+};
+
 @autobind
 class Paper extends React.Component {
     state = {
@@ -38,7 +44,13 @@ class Paper extends React.Component {
         return (
             <div className={ css.paper }>
                 {
-                    showEditor ? <Editor editorState={ this.state.editorState } onChange={ this.onChange }/> : null
+                    showEditor ?
+                        <Editor
+                            customStyleMap={ InlineStyleMap }
+                            placeholder={ "Just Typing Someing..." }
+                            editorState={ this.state.editorState }
+                            onChange={ this.onChange }
+                        /> : null
                 }
             </div>
         );

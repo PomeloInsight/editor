@@ -23,19 +23,19 @@ function applyCommand(command: Commands, editorState: EditorState): EditorState 
 }
 
 function bold(editorState: EditorState): EditorState {
-    return RichUtils.toggleInlineStyle(editorState, "BOLD");
+    return RichUtils.toggleInlineStyle(editorState, "Bold");
 }
 
 function italic(editorState: EditorState): EditorState {
-    return RichUtils.toggleInlineStyle(editorState, "ITALIC");
+    return RichUtils.toggleInlineStyle(editorState, "Italic");
 }
 
 function underline(editorState: EditorState): EditorState {
-    return RichUtils.toggleInlineStyle(editorState, "UNDERLINE");
+    return RichUtils.toggleInlineStyle(editorState, "UnderLine");
 }
 
 function strike(editorState: EditorState): EditorState {
-    return RichUtils.toggleInlineStyle(editorState, "STRIKE");
+    return RichUtils.toggleInlineStyle(editorState, "Strike");
 }
 
 export { Commands, applyCommand };

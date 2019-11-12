@@ -13,12 +13,17 @@ interface IToolbarState {
     }
 }
 
+const defaultFocusState: { [index: string]: boolean } = {
+    "Bold": false,
+    "Italic": false,
+    "UnderLine": false,
+    "Strike": false,
+};
+
 @autobind
 class Toolbar extends React.Component<any, IToolbarState> {
     state: IToolbarState = {
-        focusState: {
-            "Bold": false,
-        },
+        focusState: Object.assign({}, defaultFocusState),
     };
 
     clicked(command: Commands) {
@@ -26,12 +31,14 @@ class Toolbar extends React.Component<any, IToolbarState> {
     }
 
     componentDidMount() {
-        Eventer.subscribe(Events.ButtonClicked, ev => {
-            const type: string = (ev as any).detail.type;
+        Eventer.subscribe(Events.ButtonStateChange, ev => {
+            const styles: string[] = (ev as any).detail;
+            const newFocusState = Object.assign({}, defaultFocusState);
+            styles.forEach(s => {
+                newFocusState[s] = true;
+            });
             this.setState({
-                focusState: Object.assign(this.state.focusState, {
-                    [type]: !this.state.focusState[type],
-                }),
+                focusState: newFocusState,
             });
         });
     }
@@ -63,9 +70,9 @@ class Toolbar extends React.Component<any, IToolbarState> {
                     </Expand>
 
                     { Buttons.Bold(this.clicked.bind(this, Commands.Bold), focusState.Bold) }
-                    { Buttons.Italic(this.clicked.bind(this, Commands.Italic)) }
-                    { Buttons.UnderLine(this.clicked.bind(this, Commands.UnderLine)) }
-                    { Buttons.Strike(this.clicked.bind(this, Commands.Strike)) }
+                    { Buttons.Italic(this.clicked.bind(this, Commands.Italic), focusState.Italic) }
+                    { Buttons.UnderLine(this.clicked.bind(this, Commands.UnderLine), focusState.UnderLine) }
+                    { Buttons.Strike(this.clicked.bind(this, Commands.Strike), focusState.Strike) }
                     { Buttons.Color(this.clicked.bind(this, Commands.Bold)) }
                     { Buttons.Link(this.clicked.bind(this, Commands.Bold)) }
                     { Buttons.RemoveFormat(this.clicked.bind(this, Commands.Bold)) }

@@ -1,5 +1,6 @@
 enum Events {
-    "ButtonClicked" = "ButtonClicked"
+    "ButtonClicked" = "ButtonClicked",
+    "ButtonStateChange" = "ButtonStateChange"
 }
 
 class Eventer {

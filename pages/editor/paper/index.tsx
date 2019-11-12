@@ -7,8 +7,17 @@ import Eventer, { Events } from "../events";
 import { applyCommand, Commands } from "../command";
 
 const InlineStyleMap = {
-    "STRIKE": {
+    "Strike": {
         textDecoration: "line-through",
+    },
+    "Bold": {
+        fontWeight: 700,
+    },
+    "Italic": {
+        fontStyle: "italic",
+    },
+    "UnderLine": {
+        textDecoration: "underline",
     },
 };
 
@@ -25,12 +34,7 @@ class Paper extends React.Component {
         Eventer.subscribe(Events.ButtonClicked, (ev: Event) => {
             const type: Commands = (ev as any).detail.type;
             const newEditorState = applyCommand(type, this.state.editorState);
-            if (this.editor.current) {
-                this.editor.current.focus();
-            }
-            this.setState({
-                editorState: newEditorState,
-            });
+            this.onChange(newEditorState);
         });
 
         this.setState({
@@ -38,9 +42,32 @@ class Paper extends React.Component {
         });
     }
 
+    updateButtonState() {
+        const selectionState = this.state.editorState.getSelection();
+        const currentContent = this.state.editorState.getCurrentContent();
+        const anchorKey = selectionState.getAnchorKey();
+        const currentContentBlock = currentContent.getBlockForKey(anchorKey);
+
+        let start = selectionState.getStartOffset();
+        const end = selectionState.getEndOffset();
+        start = start === end ? start - 1 : start;
+
+        const styleList: string[] = currentContentBlock
+            .getCharacterList()
+            .slice(start, end)
+            .map(t => t && t.getStyle())
+            .toJS()
+            .filter((x: any) => x)
+            .reduce((acc: string[], cur: string) => acc.concat(cur), []);
+
+        Eventer.fire(Events.ButtonStateChange, Array.from(new Set(styleList)));
+    }
+
     onChange(newEditorState: EditorState) {
         this.setState({
             editorState: newEditorState,
+        }, () => {
+            this.updateButtonState();
         });
     }
 
@@ -55,12 +82,6 @@ class Paper extends React.Component {
                             placeholder={ "Just Typing Someing..." }
                             editorState={ this.state.editorState }
                             onChange={ this.onChange }
-                            onBlur={ () => {
-                                console.log("blur");
-                            } }
-                            onFocus={ () => {
-                                console.log("focus");
-                            } }
                             ref={ this.editor }
                         /> : null
                 }

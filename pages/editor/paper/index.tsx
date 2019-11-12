@@ -25,6 +25,9 @@ class Paper extends React.Component {
         Eventer.subscribe(Events.ButtonClicked, (ev: Event) => {
             const type: Commands = (ev as any).detail.type;
             const newEditorState = applyCommand(type, this.state.editorState);
+            if (this.editor.current) {
+                this.editor.current.focus();
+            }
             this.setState({
                 editorState: newEditorState,
             });

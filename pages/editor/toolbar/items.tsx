@@ -12,12 +12,19 @@ interface IToolBarItem {
     focus: boolean;
 }
 
+@autobind
 class ToolBarItem extends React.Component<IToolBarItem> {
+    onClick(e: React.PointerEvent<HTMLDivElement>) {
+        e.preventDefault();
+        e.stopPropagation();
+        this.props.clicked(e);
+    }
+
     render() {
-        const { clicked, focus } = this.props;
+        const { focus } = this.props;
         return (
             <div className={ cls({ [css.item]: true, [css.itemFocus]: focus }) }
-                 onMouseDown={ clicked }
+                 onPointerDown={ this.onClick }
             >
                 { this.props.children }
             </div>

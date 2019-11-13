@@ -159,9 +159,7 @@ const Buttons = {
         NotoSansSC: SimpleButton("Noto Sans SC", true),
         NotoSerifSC: SimpleButton("Noto Serif SC", true),
         Roboto: SimpleButton("Roboto", true),
-        OpenSans: SimpleButton("Open Sans", true),
-        NotoSans: SimpleButton("Noto Sans", true),
-        Ubuntu: SimpleButton("Ubuntu", true),
+        Ubuntu: SimpleButton("Ubuntu Mono", true),
         Slabo: SimpleButton("Slabo", true),
     },
 };

@@ -1,4 +1,4 @@
-import { EditorState, RichUtils } from "draft-js";
+import { EditorState, Modifier, RichUtils } from "draft-js";
 
 enum Commands {
     "Bold" = "Bold",
@@ -12,6 +12,11 @@ enum Commands {
     "FontSizeH4" = "FontSizeH4",
     "FontSizeH5" = "FontSizeH5",
     "FontSizeH6" = "FontSizeH6",
+    "FontFamilyDefault" = "FontFamilyDefault",
+    "FontFamilySlabo" = "FontFamilySlabo",
+    "FontFamilyUbuntuMono" = "FontFamilyUbuntuMono",
+    "FontFamilyNotoSerifSC" = "FontFamilyNotoSerifSC",
+    "FontFamilyNotoSansSC" = "FontFamilyNotoSansSC",
 }
 
 function applyCommand(command: Commands, editorState: EditorState): EditorState {
@@ -38,6 +43,16 @@ function applyCommand(command: Commands, editorState: EditorState): EditorState 
             return fontsizeH5(editorState);
         case Commands.FontSizeH6:
             return fontsizeH6(editorState);
+        case Commands.FontFamilyDefault:
+            return clearFontFamily(editorState);
+        case Commands.FontFamilyNotoSansSC:
+            return fontFamilyNotoSansSC(editorState);
+        case Commands.FontFamilyNotoSerifSC:
+            return fontFamilyNotoSerifSC(editorState);
+        case Commands.FontFamilySlabo:
+            return fontFamilySlabo(editorState);
+        case Commands.FontFamilyUbuntuMono:
+            return fontFamilyUbuntuMono(editorState);
         default:
             return editorState;
     }
@@ -85,6 +100,41 @@ function fontsizeH5(editorState: EditorState): EditorState {
 
 function fontsizeH6(editorState: EditorState): EditorState {
     return RichUtils.toggleBlockType(editorState, "header-six");
+}
+
+function removeInlineStyles(editorState: EditorState, inlineStyles: string[]) {
+    const selection = editorState.getSelection();
+    const nextContentState = inlineStyles.reduce((contentState, style) => Modifier.removeInlineStyle(
+        contentState,
+        selection,
+        style,
+    ), editorState.getCurrentContent());
+
+    return EditorState.push(
+        editorState,
+        nextContentState,
+        "change-inline-style",
+    );
+}
+
+function clearFontFamily(editorState: EditorState): EditorState {
+    return removeInlineStyles(editorState, ["FontSlabo", "FontUbuntuMono", "FontNotoSerifSC", "FontNotoSansSC"]);
+}
+
+function fontFamilySlabo(editorState: EditorState): EditorState {
+    return RichUtils.toggleInlineStyle(clearFontFamily(editorState), "FontSlabo");
+}
+
+function fontFamilyUbuntuMono(editorState: EditorState): EditorState {
+    return RichUtils.toggleInlineStyle(clearFontFamily(editorState), "FontUbuntuMono");
+}
+
+function fontFamilyNotoSerifSC(editorState: EditorState): EditorState {
+    return RichUtils.toggleInlineStyle(clearFontFamily(editorState), "FontNotoSerifSC");
+}
+
+function fontFamilyNotoSansSC(editorState: EditorState): EditorState {
+    return RichUtils.toggleInlineStyle(clearFontFamily(editorState), "FontNotoSansSC");
 }
 
 export { Commands, applyCommand };

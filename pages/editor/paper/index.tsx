@@ -19,6 +19,18 @@ const InlineStyleMap = {
     "UnderLine": {
         textDecoration: "underline",
     },
+    "FontSlabo": {
+        fontFamily: "Slabo",
+    },
+    "FontUbuntuMono": {
+        fontFamily: "Ubuntu Mono",
+    },
+    "FontNotoSerifSC": {
+        fontFamily: "Noto Serif SC",
+    },
+    "FontNotoSansSC": {
+        fontFamily: "Noto Sans SC",
+    },
 };
 
 @autobind

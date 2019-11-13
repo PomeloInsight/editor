@@ -24,6 +24,10 @@ const defaultFocusState: { [index: string]: boolean } = {
     "Italic": false,
     "UnderLine": false,
     "Strike": false,
+    "FontSlabo": false,
+    "FontUbuntuMono": false,
+    "FontNotoSerifSC": false,
+    "FontNotoSansSC": false,
 };
 
 @autobind
@@ -65,12 +69,11 @@ class Toolbar extends React.Component<any, IToolbarState> {
                     </Expand>
 
                     <Expand vertical={ true }>
-                        { Buttons.FontList.default(this.clicked.bind(this, Commands.Bold)) }
-                        { Buttons.FontList.NotoSansSC(this.clicked.bind(this, Commands.Bold)) }
-                        { Buttons.FontList.NotoSerifSC(this.clicked.bind(this, Commands.Bold)) }
-                        { Buttons.FontList.Roboto(this.clicked.bind(this, Commands.Bold)) }
-                        { Buttons.FontList.Slabo(this.clicked.bind(this, Commands.Bold)) }
-                        { Buttons.FontList.Ubuntu(this.clicked.bind(this, Commands.Bold)) }
+                        { Buttons.FontList.default(this.clicked.bind(this, Commands.FontFamilyDefault)) }
+                        { Buttons.FontList.NotoSansSC(this.clicked.bind(this, Commands.FontFamilyNotoSansSC), focusState.FontNotoSansSC) }
+                        { Buttons.FontList.NotoSerifSC(this.clicked.bind(this, Commands.FontFamilyNotoSerifSC), focusState.FontNotoSerifSC) }
+                        { Buttons.FontList.Slabo(this.clicked.bind(this, Commands.FontFamilySlabo), focusState.FontSlabo) }
+                        { Buttons.FontList.Ubuntu(this.clicked.bind(this, Commands.FontFamilyUbuntuMono), focusState.FontUbuntuMono) }
                     </Expand>
 
                     { Buttons.Bold(this.clicked.bind(this, Commands.Bold), focusState.Bold) }

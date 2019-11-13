@@ -1,6 +1,10 @@
+@import "../common/style/paper-fonts";
+
 :global {
+
   .DraftEditor-root {
     position: relative;
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
   }
 
   .public-DraftEditorPlaceholder-root {

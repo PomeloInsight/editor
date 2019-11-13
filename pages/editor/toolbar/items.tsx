@@ -157,12 +157,11 @@ const Buttons = {
         h6: SimpleButton("六级标题", true, css.btnH6),
     },
     FontList: {
-        default: SimpleButton("Default", true),
-        NotoSansSC: SimpleButton("Noto Sans SC", true),
-        NotoSerifSC: SimpleButton("Noto Serif SC", true),
-        Roboto: SimpleButton("Roboto", true),
-        Ubuntu: SimpleButton("Ubuntu Mono", true),
-        Slabo: SimpleButton("Slabo", true),
+        default: SimpleButton("Default", true, css.btnFontDefault),
+        NotoSansSC: SimpleButton("Noto Sans SC", true, css.btnFontNotosanssc),
+        NotoSerifSC: SimpleButton("Noto Serif SC", true, css.btnFontNotoserifsc),
+        Ubuntu: SimpleButton("Ubuntu Mono", true, css.btnFontUbuntu),
+        Slabo: SimpleButton("Slabo", true, css.btnFontSlabo),
     },
 };
 

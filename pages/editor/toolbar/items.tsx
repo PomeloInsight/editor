@@ -10,6 +10,7 @@ import { cls } from "../../common/ts/utils";
 interface IToolBarItem {
     clicked: (event: React.PointerEvent<HTMLDivElement>) => void;
     focus: boolean;
+    className?: string;
 }
 
 @autobind
@@ -21,9 +22,9 @@ class ToolBarItem extends React.Component<IToolBarItem> {
     }
 
     render() {
-        const { focus } = this.props;
+        const { focus, className = "" } = this.props;
         return (
-            <div className={ cls({ [css.item]: true, [css.itemFocus]: focus }) }
+            <div className={ cls({ [css.item]: true, [css.itemFocus]: focus, [className]: true }) }
                  onPointerDown={ this.onClick }
             >
                 { this.props.children }
@@ -102,9 +103,9 @@ class Group extends React.Component {
 const Spacer = <div className={ css.spacer }/>;
 
 const SimpleButton =
-    (content: IconDefinition | String, isText = false) =>
+    (content: IconDefinition | String, isText = false, className = "") =>
         (clicked: (event: React.PointerEvent<HTMLDivElement>) => void, focus: boolean = false) => (
-            <ToolBarItem clicked={ clicked } focus={ focus }>
+            <ToolBarItem clicked={ clicked } focus={ focus } className={ className }>
                 { isText ?
                     `${ content }` :
                     <FontAwesomeIcon icon={ content as IconDefinition }/>
@@ -144,13 +145,13 @@ const Buttons = {
     Help: SimpleButton(fa.faQuestion),
     Math: SimpleButton(fa.faSquareRootAlt),
     PredefinedFormat: {
-        body: SimpleButton("正文", true),
-        h1: SimpleButton("一级标题", true),
-        h2: SimpleButton("二级标题", true),
-        h3: SimpleButton("三级标题", true),
-        h4: SimpleButton("四级标题", true),
-        h5: SimpleButton("五级标题", true),
-        h6: SimpleButton("六级标题", true),
+        body: SimpleButton("正文", true, css.btnBody),
+        h1: SimpleButton("一级标题", true, css.btnH1),
+        h2: SimpleButton("二级标题", true, css.btnH2),
+        h3: SimpleButton("三级标题", true, css.btnH3),
+        h4: SimpleButton("四级标题", true, css.btnH4),
+        h5: SimpleButton("五级标题", true, css.btnH5),
+        h6: SimpleButton("六级标题", true, css.btnH6),
     },
     FontList: {
         default: SimpleButton("Default", true),

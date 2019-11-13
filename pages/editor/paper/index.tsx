@@ -43,7 +43,17 @@ class Paper extends React.Component {
     }
 
     updateButtonState() {
-        Eventer.fire(Events.ButtonStateChange, this.state.editorState.getCurrentInlineStyle().toJS());
+        const selectionState = this.state.editorState.getSelection();
+        const anchorKey = selectionState.getAnchorKey();
+        const currentContent = this.state.editorState.getCurrentContent();
+        const currentContentBlock = currentContent.getBlockForKey(anchorKey);
+
+        const blockType = currentContentBlock.getType();
+
+        const buttonStates = this.state.editorState.getCurrentInlineStyle().toJS();
+        buttonStates.push(blockType);
+
+        Eventer.fire(Events.ButtonStateChange, buttonStates);
     }
 
     onChange(newEditorState: EditorState) {

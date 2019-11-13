@@ -27,6 +27,19 @@
   margin: 0 2px;
   border-radius: 4px;
 
+  &:after {
+    content: "";
+    position: absolute;
+    left: 2px;
+    top: 2px;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: #2ecc71;
+    opacity: 0;
+    transition: opacity 0.1s ease-in-out;
+  }
+
   .first {
     display: flex;
     align-items: stretch;
@@ -106,6 +119,12 @@
       grid-template-columns: repeat(5, 30px);
       grid-row-gap: 4px;
       grid-column-gap: 4px;
+    }
+  }
+
+  &.expand-has-child {
+    &:after {
+      opacity: 1;
     }
   }
 }

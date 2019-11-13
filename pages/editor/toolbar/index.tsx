@@ -14,6 +14,12 @@ interface IToolbarState {
 }
 
 const defaultFocusState: { [index: string]: boolean } = {
+    "header-one": false,
+    "header-two": false,
+    "header-three": false,
+    "header-four": false,
+    "header-five": false,
+    "header-six": false,
     "Bold": false,
     "Italic": false,
     "UnderLine": false,
@@ -32,9 +38,9 @@ class Toolbar extends React.Component<any, IToolbarState> {
 
     componentDidMount() {
         Eventer.subscribe(Events.ButtonStateChange, ev => {
-            const styles: string[] = (ev as any).detail;
+            const states: string[] = (ev as any).detail;
             const newFocusState = Object.assign({}, defaultFocusState);
-            styles.forEach(s => {
+            states.forEach(s => {
                 newFocusState[s] = true;
             });
             this.setState({
@@ -50,12 +56,12 @@ class Toolbar extends React.Component<any, IToolbarState> {
                 <Group>
                     <Expand vertical={ true }>
                         { Buttons.PredefinedFormat.body(this.clicked.bind(this, Commands.FontSizeBody)) }
-                        { Buttons.PredefinedFormat.h1(this.clicked.bind(this, Commands.FontSizeH1)) }
-                        { Buttons.PredefinedFormat.h2(this.clicked.bind(this, Commands.FontSizeH2)) }
-                        { Buttons.PredefinedFormat.h3(this.clicked.bind(this, Commands.FontSizeH3)) }
-                        { Buttons.PredefinedFormat.h4(this.clicked.bind(this, Commands.FontSizeH4)) }
-                        { Buttons.PredefinedFormat.h5(this.clicked.bind(this, Commands.FontSizeH5)) }
-                        { Buttons.PredefinedFormat.h6(this.clicked.bind(this, Commands.FontSizeH6)) }
+                        { Buttons.PredefinedFormat.h1(this.clicked.bind(this, Commands.FontSizeH1), focusState["header-one"]) }
+                        { Buttons.PredefinedFormat.h2(this.clicked.bind(this, Commands.FontSizeH2), focusState["header-two"]) }
+                        { Buttons.PredefinedFormat.h3(this.clicked.bind(this, Commands.FontSizeH3), focusState["header-three"]) }
+                        { Buttons.PredefinedFormat.h4(this.clicked.bind(this, Commands.FontSizeH4), focusState["header-four"]) }
+                        { Buttons.PredefinedFormat.h5(this.clicked.bind(this, Commands.FontSizeH5), focusState["header-five"]) }
+                        { Buttons.PredefinedFormat.h6(this.clicked.bind(this, Commands.FontSizeH6), focusState["header-six"]) }
                     </Expand>
 
                     <Expand vertical={ true }>

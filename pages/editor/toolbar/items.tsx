@@ -67,6 +67,7 @@ class Expand extends React.Component<IExpand> {
     render() {
         const [first, ...others] = React.Children.map(this.props.children, x => x);
         const { showOthers } = this.state;
+        const hasChildFocus = others.filter((x: any) => x && x.props && x.props.focus).length !== 0;
         return (
             <div
                 className={ cls({
@@ -74,6 +75,7 @@ class Expand extends React.Component<IExpand> {
                     [css.expandShow]: showOthers,
                     [css.expandVertical]: this.props.vertical === true,
                     [css.expandGrid]: this.props.grid === true,
+                    [css.expandHasChild]: hasChildFocus,
                 }) }
                 ref={ this.expandRoot }
             >

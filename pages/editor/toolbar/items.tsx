@@ -19,6 +19,7 @@ class ToolBarItem extends React.Component<IToolBarItem> {
         e.preventDefault();
         e.stopPropagation();
         this.props.clicked(e);
+        document.body.click();
     }
 
     render() {

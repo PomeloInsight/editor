@@ -1,0 +1,42 @@
+:global {
+  .DraftEditor-root {
+    position: relative;
+  }
+
+  .public-DraftEditorPlaceholder-root {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: -1;
+  }
+
+  h1 span {
+    font-size: 32px;
+    font-weight: bolder;
+  }
+
+  h2 span {
+    font-size: 24px;
+    font-weight: bolder;
+  }
+
+  h3 span {
+    font-size: 18.72px;
+    font-weight: bolder;
+  }
+
+  h4 span {
+    font-size: 16px;
+    font-weight: bolder;
+  }
+
+  h5 span {
+    font-size: 13.28px;
+    font-weight: bolder;
+  }
+
+  h6 span {
+    font-size: 10.72px;
+    font-weight: bolder;
+  }
+}

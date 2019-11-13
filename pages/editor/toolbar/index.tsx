@@ -49,13 +49,13 @@ class Toolbar extends React.Component<any, IToolbarState> {
             <div className={ css.toolbar }>
                 <Group>
                     <Expand vertical={ true }>
-                        { Buttons.PredefinedFormat.body(this.clicked.bind(this, Commands.Bold)) }
-                        { Buttons.PredefinedFormat.h1(this.clicked.bind(this, Commands.Bold)) }
-                        { Buttons.PredefinedFormat.h2(this.clicked.bind(this, Commands.Bold)) }
-                        { Buttons.PredefinedFormat.h3(this.clicked.bind(this, Commands.Bold)) }
-                        { Buttons.PredefinedFormat.h4(this.clicked.bind(this, Commands.Bold)) }
-                        { Buttons.PredefinedFormat.h5(this.clicked.bind(this, Commands.Bold)) }
-                        { Buttons.PredefinedFormat.h6(this.clicked.bind(this, Commands.Bold)) }
+                        { Buttons.PredefinedFormat.body(this.clicked.bind(this, Commands.FontSizeBody)) }
+                        { Buttons.PredefinedFormat.h1(this.clicked.bind(this, Commands.FontSizeH1)) }
+                        { Buttons.PredefinedFormat.h2(this.clicked.bind(this, Commands.FontSizeH2)) }
+                        { Buttons.PredefinedFormat.h3(this.clicked.bind(this, Commands.FontSizeH3)) }
+                        { Buttons.PredefinedFormat.h4(this.clicked.bind(this, Commands.FontSizeH4)) }
+                        { Buttons.PredefinedFormat.h5(this.clicked.bind(this, Commands.FontSizeH5)) }
+                        { Buttons.PredefinedFormat.h6(this.clicked.bind(this, Commands.FontSizeH6)) }
                     </Expand>
 
                     <Expand vertical={ true }>

@@ -43,24 +43,7 @@ class Paper extends React.Component {
     }
 
     updateButtonState() {
-        const selectionState = this.state.editorState.getSelection();
-        const currentContent = this.state.editorState.getCurrentContent();
-        const anchorKey = selectionState.getAnchorKey();
-        const currentContentBlock = currentContent.getBlockForKey(anchorKey);
-
-        let start = selectionState.getStartOffset();
-        const end = selectionState.getEndOffset();
-        start = start === end ? start - 1 : start;
-
-        const styleList: string[] = currentContentBlock
-            .getCharacterList()
-            .slice(start, end)
-            .map(t => t && t.getStyle())
-            .toJS()
-            .filter((x: any) => x)
-            .reduce((acc: string[], cur: string) => acc.concat(cur), []);
-
-        Eventer.fire(Events.ButtonStateChange, Array.from(new Set(styleList)));
+        Eventer.fire(Events.ButtonStateChange, this.state.editorState.getCurrentInlineStyle().toJS());
     }
 
     onChange(newEditorState: EditorState) {

@@ -60,10 +60,8 @@ class Toolbar extends React.Component<any, IToolbarState> {
 
                     <Expand vertical={ true }>
                         { Buttons.FontList.default(this.clicked.bind(this, Commands.Bold)) }
-                        { Buttons.FontList.NotoSans(this.clicked.bind(this, Commands.Bold)) }
                         { Buttons.FontList.NotoSansSC(this.clicked.bind(this, Commands.Bold)) }
                         { Buttons.FontList.NotoSerifSC(this.clicked.bind(this, Commands.Bold)) }
-                        { Buttons.FontList.OpenSans(this.clicked.bind(this, Commands.Bold)) }
                         { Buttons.FontList.Roboto(this.clicked.bind(this, Commands.Bold)) }
                         { Buttons.FontList.Slabo(this.clicked.bind(this, Commands.Bold)) }
                         { Buttons.FontList.Ubuntu(this.clicked.bind(this, Commands.Bold)) }

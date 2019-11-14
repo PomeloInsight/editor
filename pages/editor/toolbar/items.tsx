@@ -137,7 +137,7 @@ const Buttons = {
     Link: SimpleButton(fa.faLink),
     Italic: SimpleButton(fa.faItalic),
     Search: SimpleButton(fa.faSearch),
-    Color: SimpleButton(fa.faEyeDropper),
+    Color: SimpleButton(fa.faPalette),
     Image: SimpleButton(fa.faImage),
     Save: SimpleButton(fa.faSave),
     Code: SimpleButton(fa.faCode),

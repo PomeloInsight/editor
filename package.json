@@ -15,24 +15,24 @@
     "@fortawesome/fontawesome-svg-core": "1.2.25",
     "@fortawesome/free-solid-svg-icons": "5.11.2",
     "@fortawesome/react-fontawesome": "0.1.7",
-    "@types/draft-js": "^0.10.37",
     "core-decorators": "0.20.0",
-    "draft-js": "^0.11.1",
+    "draft-js": "^0.11.2",
     "next": "9.1.1",
     "react": "16.11.0",
     "react-dom": "16.11.0"
   },
   "devDependencies": {
-    "@babel/plugin-proposal-class-properties": "7.5.5",
-    "@babel/plugin-proposal-decorators": "7.6.0",
-    "@types/node": "12.11.7",
+    "@babel/plugin-proposal-class-properties": "7.7.0",
+    "@babel/plugin-proposal-decorators": "7.7.0",
+    "@types/node": "12.12.7",
     "@types/react": "16.9.11",
+    "@types/draft-js": "^0.10.37",
     "@zeit/next-sass": "1.0.1",
-    "autoprefixer": "9.7.0",
+    "autoprefixer": "9.7.1",
     "node-sass": "4.13.0",
     "postcss-loader": "3.0.0",
-    "tslint": "5.20.0",
+    "tslint": "5.20.1",
     "tslint-microsoft-contrib": "6.2.0",
-    "typescript": "3.6.4"
+    "typescript": "3.7.2"
   }
 }

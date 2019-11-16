@@ -4,6 +4,7 @@ import * as fa from "@fortawesome/free-solid-svg-icons";
 import { IconDefinition } from "@fortawesome/fontawesome-common-types";
 import { autobind } from "core-decorators";
 
+import Palette from "./palette";
 import * as css from "./items.scss";
 import { cls } from "../../common/ts/utils";
 
@@ -116,6 +117,67 @@ const SimpleButton =
             </ToolBarItem>
         );
 
+interface IColorButton {
+    icon: IconDefinition;
+    onChange: (color: string) => void;
+    focus: boolean;
+}
+
+@autobind
+class ColorButton extends React.Component<IColorButton> {
+    state = {
+        showPalette: false,
+    };
+
+    paletteRoot = React.createRef<HTMLDivElement>();
+    paletteWrap = React.createRef<HTMLDivElement>();
+
+    componentDidMount() {
+        document.body.addEventListener("click", (e: any) => {
+            if (!e.isTrusted) return;
+            const inPath = e.path.filter((x: any) => x === this.paletteWrap.current).length === 1;
+            if (!inPath) {
+                this.setState({
+                    showPalette: false,
+                });
+            }
+        });
+    }
+
+    onClicked(e: any) {
+        e.preventDefault();
+        e.stopPropagation();
+        const inPath = e.nativeEvent.path.filter((x: any) => x === this.paletteRoot.current).length === 1;
+        if (inPath) return;
+        this.setState({
+            showPalette: !this.state.showPalette,
+        });
+    }
+
+    render() {
+        const { onChange, focus, icon } = this.props;
+        const { showPalette } = this.state;
+        return (
+            <ToolBarItem clicked={ this.onClicked } focus={ focus }>
+                <div ref={ this.paletteWrap }>
+                    <FontAwesomeIcon icon={ icon }/>
+                    <div className={ cls({
+                        [css.palette]: true,
+                        [css.paletteExpand]: showPalette,
+                    }) } ref={ this.paletteRoot }>
+                        <Palette changed={ onChange }/>
+                    </div>
+                </div>
+            </ToolBarItem>
+        );
+    }
+}
+
+const createColorButton = (icon: IconDefinition) =>
+    (changed: (color: string) => void, focus: boolean = false) => (
+        <ColorButton icon={ icon } onChange={ changed } focus={ focus }/>
+    );
+
 const Buttons = {
     Bold: SimpleButton(fa.faBold),
     AlignLeft: SimpleButton(fa.faAlignLeft),
@@ -137,7 +199,8 @@ const Buttons = {
     Link: SimpleButton(fa.faLink),
     Italic: SimpleButton(fa.faItalic),
     Search: SimpleButton(fa.faSearch),
-    Color: SimpleButton(fa.faPalette),
+    TextColor: createColorButton(fa.faPaintBrush),
+    BgColor: createColorButton(fa.faFill),
     Image: SimpleButton(fa.faImage),
     Save: SimpleButton(fa.faSave),
     Code: SimpleButton(fa.faCode),

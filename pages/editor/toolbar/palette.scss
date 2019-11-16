@@ -1,0 +1,23 @@
+.palette {
+  width: 196px;
+  display: flex;
+  flex-wrap: wrap;
+  box-shadow: 1px 1px 4px 0 rgb(195, 195, 195);
+  border-radius: 4px;
+  padding: 4px;
+}
+
+.color {
+  width: 20px;
+  height: 20px;
+  margin: 4px;
+  border-radius: 4px;
+  cursor: pointer;
+  transform-origin: center center;
+  transition: transform 0.15s;
+  will-change: transition;
+
+  &:hover {
+    transform: scale(1.2);
+  }
+}

@@ -12,6 +12,7 @@
   user-select: none;
   margin: 0 2px;
   white-space: nowrap;
+  position: relative;
 
   &:hover {
     background-color: rgba(9, 30, 66, .13);
@@ -81,6 +82,7 @@
     opacity: 0;
     transition: opacity 0.1s ease-in-out, transform 0.1s ease-in-out;
     transform: translate3d(-4px, -4px, 0);
+    will-change: transform;
   }
 
   &.expand-show {
@@ -210,4 +212,23 @@
 
 .btn-font-Slabo {
   font-family: 'Slabo', serif;
+}
+
+.palette {
+  position: absolute;
+  z-index: 1;
+  background: #fff;
+  left: 0;
+  top: 110%;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.1s ease-in-out, transform 0.1s ease-in-out;
+  transform: translate3d(-4px, -4px, 0);
+
+  &.palette-expand {
+    opacity: 1;
+    visibility: visible;
+    transform: translate3d(0, 0, 0);
+    will-change: transform;
+  }
 }

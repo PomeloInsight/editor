@@ -17,6 +17,8 @@ enum Commands {
     "FontFamilyUbuntuMono" = "FontFamilyUbuntuMono",
     "FontFamilyNotoSerifSC" = "FontFamilyNotoSerifSC",
     "FontFamilyNotoSansSC" = "FontFamilyNotoSansSC",
+    "TextColor" = "TextColor",
+    "BackGroundColor" = "BackGroundColor"
 }
 
 function applyCommand(command: Commands, editorState: EditorState): EditorState {

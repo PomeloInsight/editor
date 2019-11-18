@@ -40,8 +40,8 @@ class Toolbar extends React.Component<any, IToolbarState> {
         Eventer.fire(Events.ButtonClicked, { "type": command });
     }
 
-    colorClicked(color: string) {
-        console.log(color);
+    colorClicked(type: Commands, color: string) {
+        Eventer.fire(Events.ButtonClicked, { type, color });
     }
 
     componentDidMount() {
@@ -84,8 +84,8 @@ class Toolbar extends React.Component<any, IToolbarState> {
                     { Buttons.Italic(this.clicked.bind(this, Commands.Italic), focusState.Italic) }
                     { Buttons.UnderLine(this.clicked.bind(this, Commands.UnderLine), focusState.UnderLine) }
                     { Buttons.Strike(this.clicked.bind(this, Commands.Strike), focusState.Strike) }
-                    { Buttons.TextColor(this.colorClicked) }
-                    { Buttons.BgColor(this.colorClicked) }
+                    { Buttons.TextColor(this.colorClicked.bind(this, Commands.TextColor)) }
+                    { Buttons.BgColor(this.colorClicked.bind(this, Commands.BackGroundColor)) }
                     { Buttons.Link(this.clicked.bind(this, Commands.Bold)) }
                     { Buttons.RemoveFormat(this.clicked.bind(this, Commands.Bold)) }
                 </Group>

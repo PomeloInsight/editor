@@ -28,6 +28,8 @@ const defaultFocusState: { [index: string]: boolean } = {
     "FontUbuntuMono": false,
     "FontNotoSerifSC": false,
     "FontNotoSansSC": false,
+    "TextColor": false,
+    "BackGroundColor": false,
 };
 
 @autobind
@@ -84,8 +86,8 @@ class Toolbar extends React.Component<any, IToolbarState> {
                     { Buttons.Italic(this.clicked.bind(this, Commands.Italic), focusState.Italic) }
                     { Buttons.UnderLine(this.clicked.bind(this, Commands.UnderLine), focusState.UnderLine) }
                     { Buttons.Strike(this.clicked.bind(this, Commands.Strike), focusState.Strike) }
-                    { Buttons.TextColor(this.colorClicked.bind(this, Commands.TextColor)) }
-                    { Buttons.BgColor(this.colorClicked.bind(this, Commands.BackGroundColor)) }
+                    { Buttons.TextColor(this.colorClicked.bind(this, Commands.TextColor), focusState.TextColor) }
+                    { Buttons.BgColor(this.colorClicked.bind(this, Commands.BackGroundColor), focusState.BackGroundColor) }
                     { Buttons.Link(this.clicked.bind(this, Commands.Bold)) }
                     { Buttons.RemoveFormat(this.clicked.bind(this, Commands.Bold)) }
                 </Group>

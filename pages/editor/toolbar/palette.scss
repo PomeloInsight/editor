@@ -16,6 +16,7 @@
   transform-origin: center center;
   transition: transform 0.15s;
   will-change: transition;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.25);
 
   &:hover {
     transform: scale(1.2);

@@ -1,12 +1,12 @@
 import * as React from "react";
-import { ContentBlock, DraftInlineStyle, DraftStyleMap, Editor, EditorState } from "draft-js";
+import { DraftInlineStyle, DraftStyleMap, Editor, EditorState } from "draft-js";
 import { autobind } from "core-decorators";
 
 import * as css from "./style.scss";
 import Eventer, { Events } from "../events";
 import { applyCommand, Commands } from "../command";
 
-const InlineStyleMap = {
+const customStyleMap = {
     "Strike": {
         textDecoration: "line-through",
     },
@@ -34,7 +34,7 @@ const InlineStyleMap = {
 };
 
 
-const customStyleFn = (style: DraftInlineStyle, block: ContentBlock) => {
+const customStyleFn = (style: DraftInlineStyle) => {
     const styleMap: { [index: string]: string } = {};
     style.forEach(styleName => {
         if (styleName && styleName.startsWith("TextColor")) {
@@ -79,8 +79,14 @@ class Paper extends React.Component {
 
         const blockType = currentContentBlock.getType();
 
-        const buttonStates = this.state.editorState.getCurrentInlineStyle().toJS();
+        let buttonStates: string[] = this.state.editorState.getCurrentInlineStyle().toJS();
         buttonStates.push(blockType);
+
+        buttonStates = buttonStates.map(x => {
+            if (x.startsWith("TextColor")) return "TextColor";
+            if (x.startsWith("BackGroundColor")) return "BackGroundColor";
+            return x;
+        });
 
         Eventer.fire(Events.ButtonStateChange, buttonStates);
     }
@@ -100,7 +106,7 @@ class Paper extends React.Component {
                 {
                     showEditor ?
                         <Editor
-                            customStyleMap={ InlineStyleMap }
+                            customStyleMap={ customStyleMap }
                             customStyleFn={ customStyleFn }
                             placeholder={ "Just Typing Someing..." }
                             editorState={ this.state.editorState }

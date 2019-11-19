@@ -21,7 +21,7 @@ enum Commands {
     "BackGroundColor" = "BackGroundColor"
 }
 
-function applyCommand(command: Commands, editorState: EditorState): EditorState {
+function applyCommand(command: Commands, others: any, editorState: EditorState): EditorState {
     switch (command) {
         case Commands.Bold:
             return bold(editorState);
@@ -55,9 +55,21 @@ function applyCommand(command: Commands, editorState: EditorState): EditorState 
             return fontFamilySlabo(editorState);
         case Commands.FontFamilyUbuntuMono:
             return fontFamilyUbuntuMono(editorState);
+        case Commands.TextColor:
+            return textColor(others, editorState);
+        case Commands.BackGroundColor:
+            return backgroundColor(others, editorState);
         default:
             return editorState;
     }
+}
+
+function textColor(others: any, editorState: EditorState): EditorState {
+    return RichUtils.toggleInlineStyle(editorState, `TextColor${ others.color }`);
+}
+
+function backgroundColor(others: any, editorState: EditorState): EditorState {
+    return RichUtils.toggleInlineStyle(editorState, `BackGroundColor${ others.color }`);
 }
 
 function bold(editorState: EditorState): EditorState {

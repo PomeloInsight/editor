@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Editor, EditorState } from "draft-js";
+import { ContentBlock, DraftInlineStyle, DraftStyleMap, Editor, EditorState } from "draft-js";
 import { autobind } from "core-decorators";
 
 import * as css from "./style.scss";
@@ -33,6 +33,20 @@ const InlineStyleMap = {
     },
 };
 
+
+const customStyleFn = (style: DraftInlineStyle, block: ContentBlock) => {
+    const styleMap: { [index: string]: string } = {};
+    style.forEach(styleName => {
+        if (styleName && styleName.startsWith("TextColor")) {
+            styleMap["color"] = styleName.replace("TextColor", "");
+        }
+        if (styleName && styleName.startsWith("BackGroundColor")) {
+            styleMap["backgroundColor"] = styleName.replace("BackGroundColor", "");
+        }
+    });
+    return styleMap as DraftStyleMap;
+};
+
 @autobind
 class Paper extends React.Component {
     editor = React.createRef<Editor>();
@@ -45,7 +59,10 @@ class Paper extends React.Component {
     componentDidMount() {
         Eventer.subscribe(Events.ButtonClicked, (ev: Event) => {
             const type: Commands = (ev as any).detail.type;
-            const newEditorState = applyCommand(type, this.state.editorState);
+            const others = {
+                color: (ev as any).detail.color,
+            };
+            const newEditorState = applyCommand(type, others, this.state.editorState);
             this.onChange(newEditorState);
         });
 
@@ -84,6 +101,7 @@ class Paper extends React.Component {
                     showEditor ?
                         <Editor
                             customStyleMap={ InlineStyleMap }
+                            customStyleFn={ customStyleFn }
                             placeholder={ "Just Typing Someing..." }
                             editorState={ this.state.editorState }
                             onChange={ this.onChange }

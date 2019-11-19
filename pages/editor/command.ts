@@ -18,7 +18,8 @@ enum Commands {
     "FontFamilyNotoSerifSC" = "FontFamilyNotoSerifSC",
     "FontFamilyNotoSansSC" = "FontFamilyNotoSansSC",
     "TextColor" = "TextColor",
-    "BackGroundColor" = "BackGroundColor"
+    "BackGroundColor" = "BackGroundColor",
+    "Link" = "Link",
 }
 
 function applyCommand(command: Commands, others: any, editorState: EditorState): EditorState {

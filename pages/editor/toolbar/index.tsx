@@ -88,7 +88,7 @@ class Toolbar extends React.Component<any, IToolbarState> {
                     { Buttons.Strike(this.clicked.bind(this, Commands.Strike), focusState.Strike) }
                     { Buttons.TextColor(this.colorClicked.bind(this, Commands.TextColor), focusState.TextColor) }
                     { Buttons.BgColor(this.colorClicked.bind(this, Commands.BackGroundColor), focusState.BackGroundColor) }
-                    { Buttons.Link(this.clicked.bind(this, Commands.Bold)) }
+                    { Buttons.Link(this.clicked.bind(this, Commands.Link)) }
                     { Buttons.RemoveFormat(this.clicked.bind(this, Commands.Bold)) }
                 </Group>
 

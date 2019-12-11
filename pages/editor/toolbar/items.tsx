@@ -5,6 +5,7 @@ import { IconDefinition } from "@fortawesome/fontawesome-common-types";
 import { autobind } from "core-decorators";
 
 import Palette from "./palette";
+import LinkInput from "./linkInput";
 import * as css from "./items.scss";
 import { cls } from "../../common/ts/utils";
 
@@ -12,13 +13,16 @@ interface IToolBarItem {
     clicked: (event: React.PointerEvent<HTMLDivElement>) => void;
     focus: boolean;
     className?: string;
+    notPrevent?: boolean;
 }
 
 @autobind
 class ToolBarItem extends React.Component<IToolBarItem> {
     onClick(e: React.PointerEvent<HTMLDivElement>) {
-        e.preventDefault();
-        e.stopPropagation();
+        if (this.props.notPrevent !== true) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
         this.props.clicked(e);
         document.body.click();
     }
@@ -178,6 +182,79 @@ const createColorButton = (icon: IconDefinition) =>
         <ColorButton icon={ icon } onChange={ changed } focus={ focus }/>
     );
 
+interface ILinkButton {
+    icon: IconDefinition;
+    onChange: (text: string, href: string) => void;
+    focus: boolean;
+}
+
+@autobind
+class LinkButton extends React.Component<ILinkButton, any> {
+    linkWrapperRef = React.createRef<HTMLDivElement>();
+    inputWrapperRef = React.createRef<HTMLDivElement>();
+
+    state = {
+        showInput: false,
+        left: 0,
+        top: 0,
+    };
+
+    componentDidMount() {
+        document.body.addEventListener("click", (e: any) => {
+            if (!e.isTrusted) return;
+            const inPath = e.path.filter((x: any) => x === this.linkWrapperRef.current).length === 1;
+            if (!inPath) {
+                this.setState({
+                    showInput: false,
+                });
+            }
+        });
+    }
+
+    onClicked(e: any) {
+        const target = e.nativeEvent.target;
+        if (this.inputWrapperRef.current && this.inputWrapperRef.current.contains(target)) return;
+
+        const selection = window.getSelection();
+        if (!selection || selection.rangeCount === 0) return;
+
+        const range = selection.getRangeAt(0);
+        if (range.collapsed) return;
+
+        const rect = range.getBoundingClientRect();
+
+        this.setState({
+            showInput: true,
+            left: rect.left,
+            top: rect.top + 35,
+        });
+    }
+
+    render() {
+        const { focus, icon } = this.props;
+        const { showInput, left, top } = this.state;
+        return (
+            <ToolBarItem clicked={ this.onClicked } focus={ focus } notPrevent={ true }>
+                <div ref={ this.linkWrapperRef }>
+                    <FontAwesomeIcon icon={ icon }/>
+                    {
+                        showInput ?
+                            <div ref={ this.inputWrapperRef }>
+                                <LinkInput left={ left } top={ top } onLinkUpdated={ this.props.onChange }/>
+                            </div> :
+                            null
+                    }
+                </div>
+            </ToolBarItem>
+        );
+    }
+}
+
+const createLinkButton = (icon: IconDefinition) =>
+    (changed: (text: string, href: string) => void, focus: boolean = false) => (
+        <LinkButton icon={ icon } onChange={ changed } focus={ focus }/>
+    );
+
 const Buttons = {
     Bold: SimpleButton(fa.faBold),
     AlignLeft: SimpleButton(fa.faAlignLeft),
@@ -196,7 +273,7 @@ const Buttons = {
     Sub: SimpleButton(fa.faSubscript),
     Sup: SimpleButton(fa.faSuperscript),
     UnderLine: SimpleButton(fa.faUnderline),
-    Link: SimpleButton(fa.faLink),
+    Link: createLinkButton(fa.faLink),
     Italic: SimpleButton(fa.faItalic),
     Search: SimpleButton(fa.faSearch),
     TextColor: createColorButton(fa.faPaintBrush),

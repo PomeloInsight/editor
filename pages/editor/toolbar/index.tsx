@@ -39,11 +39,16 @@ class Toolbar extends React.Component<any, IToolbarState> {
     };
 
     clicked(command: Commands) {
-        Eventer.fire(Events.ButtonClicked, { "type": command });
+        Eventer.fire(Events.ButtonClicked, { type: command });
     }
 
     colorClicked(type: Commands, color: string) {
         Eventer.fire(Events.ButtonClicked, { type, color });
+    }
+
+    linkUpdated(type: Commands, text: string, href: string) {
+        console.log(type, text, href);
+        Eventer.fire(Events.ButtonClicked, { type, text, href });
     }
 
     componentDidMount() {
@@ -88,7 +93,7 @@ class Toolbar extends React.Component<any, IToolbarState> {
                     { Buttons.Strike(this.clicked.bind(this, Commands.Strike), focusState.Strike) }
                     { Buttons.TextColor(this.colorClicked.bind(this, Commands.TextColor), focusState.TextColor) }
                     { Buttons.BgColor(this.colorClicked.bind(this, Commands.BackGroundColor), focusState.BackGroundColor) }
-                    { Buttons.Link(this.clicked.bind(this, Commands.Link)) }
+                    { Buttons.Link(this.linkUpdated.bind(this, Commands.Link)) }
                     { Buttons.RemoveFormat(this.clicked.bind(this, Commands.Bold)) }
                 </Group>
 

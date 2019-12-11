@@ -60,9 +60,15 @@ function applyCommand(command: Commands, others: any, editorState: EditorState):
             return textColor(others, editorState);
         case Commands.BackGroundColor:
             return backgroundColor(others, editorState);
+        case Commands.Link:
+            return link(editorState);
         default:
             return editorState;
     }
+}
+
+function link(editorState: EditorState): EditorState {
+    return editorState;
 }
 
 function textColor(others: any, editorState: EditorState): EditorState {
